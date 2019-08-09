@@ -12,11 +12,11 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown text="Categorias" right>
               <b-dropdown-item :to="{name: 'search', params:{ id: 'reacciones'}}">Reacciones</b-dropdown-item>
-              <b-dropdown-item :to="{name: 'search'}">Entretenimiento</b-dropdown-item>
+              <b-dropdown-item :to="{name: 'search',  params:{ id: 'entretenimiento'}}">Entretenimiento</b-dropdown-item>
               <b-dropdown-item :to="{name: 'search'}">Deportes</b-dropdown-item>
               <b-dropdown-item :to="{name: 'search'}">Gamming</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item :to="{name: 'search'}" text>Login</b-nav-item>
+            <b-nav-item class="login" :to="{name: 'search'}" text>Login</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-container>
@@ -54,6 +54,19 @@ export default {
 </script>
 
 <style lang="stylus">
+.nav-item.login
+  background #42b983
+  border #343a40 1px solid
+  border-radius 10px
+  padding 0 15px
+
+.nav-item.login .nav-link
+  color #343a40 !important
+
+.nav-item.login .nav-link:hover
+  color #fff !important
+
+
 // #app
 //   font-family 'Avenir', Helvetica, Arial, sans-serif
 //   -webkit-font-smoothing antialiased

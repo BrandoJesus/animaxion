@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-    <b-row>
+  <div class="home"><b-row>
       <b-col cols="12">
         <b-input-group class="mt-3">        
         <b-form-input id="busqueda" v-model="texto" 
@@ -14,14 +13,13 @@
       </b-input-group>
       </b-col>
     </b-row>
-    <!-- <Trending/> -->    
+    <!-- <Trending/> -->
     <b-row class="mt-3">
-      <b-col cols="12" class="my-2 trending">
-        TRENDING GIF
-      </b-col>
-      <b-col class="my-1" cols="12" sm="4" md="3" lg="2" 
+      <b-col cols="12" class="my-2 trending">Trending GIF</b-col>
+      <b-col class="my-1" cols="12" sm="6" md="4" lg="3" 
       v-for="(t, index) of trending" :key="index">
-        <b-card-img-lazy overlay :src="t.src">
+        <b-card-img-lazy overlay :src="t.src" :title="t.title"
+        blank-src="/img/logo.82b9c7a5.png">
         </b-card-img-lazy>
       </b-col>
     </b-row>
@@ -50,16 +48,12 @@ export default {
     ...mapActions(['getTrending', 'getBusqueda']),
     ir() {
       console.log('texto ', this.texto);
-      //this.$router.push({path: `/search/${ this.texto }`, query: { sort: 'revelant' }});     
+      this.$router.push({path: `/search/${ this.texto }`});     
     },
     scroll(trending) {
       window.onscroll = () => {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-      if (bottomOfWindow) {
-        console.log('scrolll', this.trending.length);
-        // Do something, anything!
-        this.getTrending(this.trending.length)
-      }
+      if (bottomOfWindow) this.getTrending(this.trending.length)
     };
     }
   },
@@ -74,8 +68,11 @@ export default {
 
 <style lang="stylus">
   .trending
-    color #cccccc
+    color #42b983
     font-size 20px
+
+  .form-control
+    border #343a40 1px solid !important
   
   #busqueda::placeholder
     transition opacity 1s, letter-spacing 1s
@@ -86,14 +83,14 @@ export default {
   
   .btn 
     background none !important
-    border #2c3e50 1px solid !important
-    color #2c3e50 !important
+    border #343a40 1px solid !important
+    color #343a40 !important
     display block !important
     overflow hidden !important
     transition 1s all ease !important
 
   .btn::before
-    background #2c3e50 !important
+    background-image: linear-gradient(to right top, #343a40, #305866, #0e7881, #00998b, #42b983) !important
     content ""
     width 100% !important
     height 100% !important

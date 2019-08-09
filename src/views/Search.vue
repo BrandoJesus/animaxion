@@ -6,17 +6,17 @@
         <b-badge variant="dark">{{ totalbusqueda }}</b-badge>        
       </b-col>
       <b-col cols="3">
-        <b-link class="mx-1" href="?sort=recent" @click="filtrar('recent')">Recientes</b-link> 
-        <b-link class="mx-1" href="?sort=relevant" @click="filtrar('revelant')">Relevantes</b-link>
+        <b-link class="mx-1" @click="filtrar('recent')">Recientes</b-link> 
+        <b-link class="mx-1" @click="filtrar('revelant')">Relevantes</b-link>
       </b-col>
-      <b-col class="my-1" cols="12" md="4" lg="3"
-      v-for="t of busqueda" :key="t.id">
-        <b-card-img-lazy
-        :src="t.images.fixed_width_small.webp"
-        overlay
-        :title="t.title"
-        >
+      <b-col class="my-1" cols="12" sm="6" md="4" lg="3"
+      v-for="(t, index) of busqueda" :key="index">
+        <b-card-img-lazy overlay :src="t.src"
+        blank-src="/img/logo.82b9c7a5.png" :title="t.title">
         </b-card-img-lazy>
+      </b-col>
+      <b-col cols="12" v-show="totalbusqueda === 0">
+        No se encontraron GIF'S
       </b-col>
     </b-row>
   </div>
@@ -35,18 +35,22 @@ export default {
   methods: {
     ...mapActions(['getBusqueda']),
     filtrar(extra) {
-      // console.log('extra ', this.$route.query);
+      console.log('extra ', extra);
       console.log('params ', this.$route.params.id);      
       // this.getBusqueda(this.$route.params.id, this.$route.query.sort);
       // let texto = this.$route.params.id +'&'+this.$route.query.sort;
-      // this.getBusqueda(this.$route.params.id, '&'+extra);
+      // this.getBusqueda(this.$route.params.id, extra);
       
-      this.$router.push({path: `/search/${ this.$route.params.id }`, query: {sort: extra}})  
+      // this.$router.push({path: `/search/${ this.$route.params.id }`, query: {sort: extra}})  
     }
   },
   created() {
-    console.log('route ', this.$route);
+    console.log('created ', this.$route);
     this.getBusqueda(this.$route.params.id, this.$route.query.sort);
+  },
+  updated() {
+    console.log('updated ', this.$route);
+    // this.getBusqueda(this.$route.params.id, this.$route.query.sort);
   }
 }
 </script>

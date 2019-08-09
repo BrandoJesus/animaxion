@@ -15,20 +15,30 @@ export default new Vuex.Store({
       lista.data.forEach(el => {
         state.trending.push({
           id: el.id,
-          src: el.images.fixed_width_small.webp
+          type: el.type,
+          title: el.title,
+          src: el.images.fixed_width.webp
         });
       });
     },
     listarBusqueda(state, lista) {
-      state.busqueda = lista.data;
-      state.totalbusqueda = lista.pagination.count
+      state.busqueda = [];
+      lista.data.forEach(el => {
+        state.busqueda.push({
+          id: el.id,
+          type: el.type,
+          title: el.title,
+          src: el.images.fixed_width.webp
+        });
+      });
+      state.totalbusqueda = lista.pagination.count;
     }
   },
   actions: {
     getTrending: async function({ commit }, offset) {      
       if(!offset) offset= 0;
       let url = 'http://api.giphy.com/v1/gifs/trending?api_key='
-      + this.state.api_key + '&limit=12&offset='+ offset;
+      + this.state.api_key + '&limit=24&offset='+ offset;
       let data = await fetch(url);
       let trending = await data.json();
       console.log('trending ', trending);
