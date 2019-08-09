@@ -9,7 +9,7 @@
         <b-link class="mx-1" href="?sort=recent" @click="filtrar('recent')">Recientes</b-link> 
         <b-link class="mx-1" href="?sort=relevant" @click="filtrar('revelant')">Relevantes</b-link>
       </b-col>
-      <b-col class="my-1" cols="12" md="4" 
+      <b-col class="my-1" cols="12" md="4" lg="3"
       v-for="t of busqueda" :key="t.id">
         <b-card-img-lazy
         :src="t.images.fixed_width_small.webp"

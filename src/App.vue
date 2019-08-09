@@ -11,7 +11,7 @@
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown text="Categorias" right>
-              <b-dropdown-item :to="{name: 'search'}">Reacciones</b-dropdown-item>
+              <b-dropdown-item :to="{name: 'search', params:{ id: 'reacciones'}}">Reacciones</b-dropdown-item>
               <b-dropdown-item :to="{name: 'search'}">Entretenimiento</b-dropdown-item>
               <b-dropdown-item :to="{name: 'search'}">Deportes</b-dropdown-item>
               <b-dropdown-item :to="{name: 'search'}">Gamming</b-dropdown-item>
@@ -21,16 +21,6 @@
         </b-collapse>
       </b-container>
     </b-navbar>
-    <!-- <b-row class="mx-3">
-      <b-col cols="12">
-        <b-input-group class="mt-3">
-        <b-form-input v-model="texto"></b-form-input>
-        <b-input-group-append>
-          <b-button @click="ir" variant="info">Buscar</b-button>
-        </b-input-group-append>
-      </b-input-group>
-      </b-col>
-    </b-row> -->
     <b-container>      
       <router-view/>
     </b-container>
@@ -57,10 +47,6 @@ export default {
   },
   methods: {
     ...mapActions(['getTrending']),
-    ir() {
-      const id = 'hola';
-      this.$router.push({path: `/search/${this.texto}`})
-    }
   },
   created() {
   }
@@ -73,7 +59,7 @@ export default {
 //   -webkit-font-smoothing antialiased
 //   -moz-osx-font-smoothing grayscale
 //   text-align center
-//   color #2c3e50
+  // color #2c3e50
 
 // #nav
 //   padding 30px
