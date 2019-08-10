@@ -7,16 +7,18 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item :to="{name: 'home'}" exact>Agregar GIF/ Crear GIF</b-nav-item>
+            <b-nav-item :to="{name: 'home'}" exact>
+              Agregar GIF/ Crear GIF <i class="fa fa-puzzle-piece"></i>
+            </b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown text="Categorias" right>
-              <b-dropdown-item :to="{name: 'search', params:{ id: 'reacciones'}}">Reacciones</b-dropdown-item>
-              <b-dropdown-item :to="{name: 'search',  params:{ id: 'entretenimiento'}}">Entretenimiento</b-dropdown-item>
-              <b-dropdown-item :to="{name: 'search'}">Deportes</b-dropdown-item>
-              <b-dropdown-item :to="{name: 'search'}">Gamming</b-dropdown-item>
+              <b-dropdown-item @click="ir(op.value)" v-for="(op, index) of options"
+              :key="index">{{ op.text }}</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item class="login" :to="{name: 'search'}" text>Login</b-nav-item>
+            <b-nav-item class="login" :to="{name: 'search'}" text>
+              Login <i class="fa fa-user"></i>
+            </b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-container>
@@ -39,14 +41,27 @@ export default {
   },
   data () {
     return {
-      texto: ''
+      texto: '',
+      options: [
+        { text: 'Reacciones', value: 'reacciones' },
+        { text: 'Entretenimiento', value: 'entretenimiento' },
+        { text: 'Deportes', value: 'deportes' },
+        { text: 'Stickers', value: 'stickers' },
+        { text: 'Memes', value: 'memes' },
+        { text: 'Juegos', value: 'juegos' }
+      ]
     }
   },
   computed:{
     ...mapState(['trending'])
   },
   methods: {
-    ...mapActions(['getTrending']),
+    ...mapActions(['getTrending', 'getBusqueda']),
+    ir(texto) {
+      console.log('texto ', texto);
+      this.$router.push({path: `/search/${ texto }`});
+      this.getBusqueda(texto);
+    },
   },
   created() {
   }
@@ -54,6 +69,18 @@ export default {
 </script>
 
 <style lang="stylus">
+#app
+  font-family 'Avenir', Helvetica, Arial, sans-serif
+//   -webkit-font-smoothing antialiased
+//   -moz-osx-font-smoothing grayscale
+//   text-align center
+  // color #2c3e50
+
+.titulo
+  font-size 25px
+  font-weight 700
+  color #42b983
+
 .nav-item.login
   background #42b983
   border #343a40 1px solid
@@ -66,13 +93,6 @@ export default {
 .nav-item.login .nav-link:hover
   color #fff !important
 
-
-// #app
-//   font-family 'Avenir', Helvetica, Arial, sans-serif
-//   -webkit-font-smoothing antialiased
-//   -moz-osx-font-smoothing grayscale
-//   text-align center
-  // color #2c3e50
 
 // #nav
 //   padding 30px

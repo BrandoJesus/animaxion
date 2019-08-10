@@ -1,9 +1,15 @@
 <template>
-  <div class="home"><b-row>
+  <div class="home">
+    <b-row>
+      <b-col class="12">
+        <b-alert v-show="errorMessage" show variant="warning">{{ errorMessage }}</b-alert>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col cols="12">
         <b-input-group class="mt-3">        
         <b-form-input id="busqueda" v-model="texto" 
-        @keyup.enter="ir" placeholder="Busca todos los GIF'S">
+        @keyup.enter="ir" placeholder="Busca todos los GIFs">
         </b-form-input>
         <b-input-group-append>
           <b-button @click="ir" variant="info">
@@ -15,7 +21,7 @@
     </b-row>
     <!-- <Trending/> -->
     <b-row class="mt-3">
-      <b-col cols="12" class="my-2 trending">Trending GIF</b-col>
+      <b-col cols="12" class="my-2 titulo">Trending GIF</b-col>
       <b-col class="my-1" cols="12" sm="6" md="4" lg="3" 
       v-for="(t, index) of trending" :key="index">
         <b-card-img-lazy overlay :src="t.src" :title="t.title"
@@ -39,6 +45,7 @@ export default {
   data () {
     return {
       texto: '',
+      errorMessage: '',
     }
   },
   computed:{
@@ -48,7 +55,9 @@ export default {
     ...mapActions(['getTrending', 'getBusqueda']),
     ir() {
       console.log('texto ', this.texto);
-      this.$router.push({path: `/search/${ this.texto }`});     
+      this.errorMessage = '';
+      if(!this.texto) return this.errorMessage = "Ingrese un texto";
+      this.$router.push({path: `/search/${ this.texto }`});
     },
     scroll(trending) {
       window.onscroll = () => {
@@ -66,11 +75,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-  .trending
-    color #42b983
-    font-size 20px
-
+<style lang="stylus" scoped>
   .form-control
     border #343a40 1px solid !important
   

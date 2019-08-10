@@ -35,7 +35,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getTrending: async function({ commit }, offset) {      
+    getTrending: async function({ commit }, offset) {
       if(!offset) offset= 0;
       let url = 'http://api.giphy.com/v1/gifs/trending?api_key='
       + this.state.api_key + '&limit=24&offset='+ offset;
@@ -44,14 +44,11 @@ export default new Vuex.Store({
       console.log('trending ', trending);
       commit('listarTrending', trending);
     },
-    getBusqueda: async function({ commit }, texto, sort) {
+    getBusqueda: async function({ commit }, texto) {
       if(!texto) texto = '';
-      console.log('texto ', texto);
-      console.log('sort ', sort);
-      if(!sort) sort = 'relevant';
 
       let url = 'http://api.giphy.com/v1/gifs/search?api_key='
-      + this.state.api_key + '&q=' + texto + '&sort='+ sort;
+      + this.state.api_key + '&q=' + texto;
       console.log('url ', url);
 
       let data = await fetch(url);
