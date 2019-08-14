@@ -22,12 +22,12 @@
     <!-- <Trending/> -->
     <b-row class="mt-3">
       <b-col cols="12" class="my-2 titulo">Trending GIF</b-col>
-      <b-col class="my-1" cols="12" sm="6" md="4" lg="3" 
-      v-for="(t, index) of trending" :key="index">
-        <b-card-img-lazy overlay :src="t.src" :title="t.title"
-        blank-src="/img/logo.82b9c7a5.png">
+      <b-card-group columns>
+        <b-card-img-lazy class="my-1" overlay :src="t.src" 
+        v-for="(t, index) of trending" :key="index" :alt="t.title"
+        :blank-src="imgBlank" :title="t.title">
         </b-card-img-lazy>
-      </b-col>
+      </b-card-group>
     </b-row>
   </div>
 </template>
@@ -46,13 +46,14 @@ export default {
     return {
       texto: '',
       errorMessage: '',
+      imgBlank: '/img/loader.a65c0afd.jpg'
     }
   },
   computed:{
     ...mapState(['trending'])
   },
   methods: {
-    ...mapActions(['getTrending', 'getBusqueda']),
+    ...mapActions(['getTrending']),
     ir() {
       console.log('texto ', this.texto);
       this.errorMessage = '';
@@ -61,9 +62,9 @@ export default {
     },
     scroll(trending) {
       window.onscroll = () => {
-      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-      if (bottomOfWindow) this.getTrending(this.trending.length)
-    };
+        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+        if (bottomOfWindow) this.getTrending(trending.length)
+      };
     }
   },
   created() {
@@ -84,7 +85,7 @@ export default {
 
   #busqueda:focus::placeholder
     opacity 0
-    letter-spacing 30px
+    letter-spacing 30px !important
   
   .btn 
     background none !important

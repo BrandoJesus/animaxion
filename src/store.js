@@ -31,7 +31,7 @@ export default new Vuex.Store({
           src: el.images.fixed_width.webp
         });
       });
-      state.totalbusqueda = lista.pagination.count;
+      state.totalbusqueda = lista.pagination.total_count;
     }
   },
   actions: {
@@ -44,9 +44,8 @@ export default new Vuex.Store({
       console.log('trending ', trending);
       commit('listarTrending', trending);
     },
-    getBusqueda: async function({ commit }, texto) {
+    getBusqueda: async function({ commit }, texto, offset) {
       if(!texto) texto = '';
-
       let url = 'http://api.giphy.com/v1/gifs/search?api_key='
       + this.state.api_key + '&q=' + texto;
       console.log('url ', url);
@@ -54,7 +53,9 @@ export default new Vuex.Store({
       let data = await fetch(url);
       let busqueda = await data.json();
       console.log('busqueda ', busqueda);
+      console.log('offset ', offset);
       commit('listarBusqueda', busqueda);
-    },
+      
+    }
   }
 })
